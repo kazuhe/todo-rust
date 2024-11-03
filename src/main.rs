@@ -1,6 +1,9 @@
 mod todo;
 
 use todo::enums::TaskStatus;
+use todo::traits::delete::Delete;
+use todo::traits::edit::Edit;
+use todo::traits::get::Get;
 use todo::{todo_factory, ItemTypes};
 
 fn main() {
@@ -8,12 +11,12 @@ fn main() {
 
     match todo_item {
         ItemTypes::Done(item) => {
-            println!("title: {}", item.super_struct.title);
-            println!("status: {}", item.super_struct.status.stringify());
+            item.get(&item.super_struct.title);
+            item.delete(&item.super_struct.title);
         }
         ItemTypes::Pending(item) => {
-            println!("title: {}", item.super_struct.title);
-            println!("status: {}", item.super_struct.status.stringify());
+            item.get(&item.super_struct.title);
+            item.set_to_done(&item.super_struct.title);
         }
     }
 }
