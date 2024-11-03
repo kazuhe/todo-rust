@@ -1,13 +1,19 @@
 mod todo;
-use todo::structs::done::Done;
-use todo::structs::pending::Pending;
+
+use todo::enums::TaskStatus;
+use todo::{todo_factory, ItemTypes};
 
 fn main() {
-    let done = Done::new("買い物");
-    println!("title: {}", done.super_struct.title);
-    println!("status: {}", done.super_struct.status.stringify());
+    let todo_item = todo_factory("洗濯", TaskStatus::Pending);
 
-    let pending = Pending::new("洗濯");
-    println!("title: {}", pending.super_struct.title);
-    println!("status: {}", pending.super_struct.status.stringify());
+    match todo_item {
+        ItemTypes::Done(item) => {
+            println!("title: {}", item.super_struct.title);
+            println!("status: {}", item.super_struct.status.stringify());
+        }
+        ItemTypes::Pending(item) => {
+            println!("title: {}", item.super_struct.title);
+            println!("status: {}", item.super_struct.status.stringify());
+        }
+    }
 }
